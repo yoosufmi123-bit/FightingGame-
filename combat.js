@@ -5,32 +5,32 @@ let playerHitCooldown = false;
 let enemyHitCooldown = false;
 
 
+export function fight(player, enemy) {
 
-export function fight(player, enemy){
 
-
-    const distance =
+    const distance = 
     player.position.distanceTo(
         enemy.position
     );
 
 
-
-    // Player hits enemy
+    // PLAYER ATTACKS ENEMY
 
     if(
-        player.userData.attack &&
-        distance < 2 &&
-        !enemyHitCooldown
+        player.userData.attack === true &&
+        distance < 1.8 &&
+        enemyHitCooldown === false
     ){
 
-        enemyHitCooldown=true;
+        enemyHitCooldown = true;
 
 
         enemy.userData.health -= 10;
 
 
-        enemy.position.x += 0.4;
+        // knockback
+
+        enemy.position.x += 0.5;
 
 
         createHitEffect(
@@ -40,30 +40,32 @@ export function fight(player, enemy){
 
         setTimeout(()=>{
 
-            enemyHitCooldown=false;
+            enemyHitCooldown = false;
 
-        },300);
+        },400);
 
     }
 
 
 
 
-    // Enemy hits player
+    // ENEMY ATTACKS PLAYER
 
     if(
-        enemy.userData.attack &&
-        distance < 2 &&
-        !playerHitCooldown
+        enemy.userData.attack === true &&
+        distance < 1.8 &&
+        playerHitCooldown === false
     ){
 
-        playerHitCooldown=true;
+        playerHitCooldown = true;
 
 
         player.userData.health -= 8;
 
 
-        player.position.x -= 0.4;
+        // knockback
+
+        player.position.x -= 0.5;
 
 
         createHitEffect(
@@ -73,27 +75,26 @@ export function fight(player, enemy){
 
         setTimeout(()=>{
 
-            playerHitCooldown=false;
+            playerHitCooldown = false;
 
-        },300);
+        },400);
 
     }
 
 
 
-
-    // Stop health from going negative
+    // Prevent negative health
 
     if(player.userData.health < 0){
 
-        player.userData.health=0;
+        player.userData.health = 0;
 
     }
 
 
     if(enemy.userData.health < 0){
 
-        enemy.userData.health=0;
+        enemy.userData.health = 0;
 
     }
 
