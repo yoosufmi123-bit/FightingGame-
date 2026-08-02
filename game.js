@@ -4,17 +4,15 @@ import { createPlayer, updatePlayer, playerAttack } from "./player.js";
 import { createEnemy, updateEnemy } from "./enemy.js";
 import { fight } from "./combat.js";
 import { updateUI } from "./ui.js";
-
+import { updateEffects } from "./effects.js";
 
 
 let scene;
 let camera;
 let renderer;
 
-
 let player;
 let enemy;
-
 
 let keys = {};
 
@@ -25,11 +23,14 @@ animate();
 
 
 
-
 function setup(){
 
 
     scene = new THREE.Scene();
+
+    // Added for effects.js
+    window.gameScene = scene;
+
 
     scene.background =
     new THREE.Color(0x222222);
@@ -38,7 +39,7 @@ function setup(){
 
     camera = new THREE.PerspectiveCamera(
         70,
-        window.innerWidth/window.innerHeight,
+        window.innerWidth / window.innerHeight,
         0.1,
         1000
     );
@@ -98,7 +99,7 @@ function setup(){
 
 
 
-    // arena floor
+    // Arena floor
 
     const floor =
     new THREE.Mesh(
@@ -116,7 +117,7 @@ function setup(){
 
 
     floor.rotation.x =
-    -Math.PI/2;
+    -Math.PI / 2;
 
 
     scene.add(floor);
@@ -142,11 +143,12 @@ function setup(){
 
     window.addEventListener(
         "keydown",
-        e=>{
+        e => {
+
             keys[e.key.toLowerCase()] = true;
 
 
-            if(e.key.toLowerCase()=="j"){
+            if(e.key.toLowerCase() === "j"){
 
                 playerAttack(player);
 
@@ -159,10 +161,13 @@ function setup(){
 
     window.addEventListener(
         "keyup",
-        e=>{
+        e => {
+
             keys[e.key.toLowerCase()] = false;
+
         }
     );
+
 
 
     window.addEventListener(
@@ -171,6 +176,7 @@ function setup(){
     );
 
 }
+
 
 
 
@@ -190,6 +196,7 @@ function animate(){
     );
 
 
+
     updateEnemy(
         enemy,
         player
@@ -201,6 +208,10 @@ function animate(){
         player,
         enemy
     );
+
+
+
+    updateEffects();
 
 
 
@@ -224,12 +235,14 @@ function animate(){
         camera
     );
 
+
 }
 
 
 
 
 function resize(){
+
 
     camera.aspect =
     window.innerWidth /
