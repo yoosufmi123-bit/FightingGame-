@@ -1,0 +1,117 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+html, body {
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    background:#111;
+
+    font-family:Arial, sans-serif;
+
+}
+
+
+canvas {
+
+    display:block;
+
+}
+
+
+
+#ui {
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    pointer-events:none;
+
+}
+
+
+
+/* Health bars */
+
+#health {
+
+    position:absolute;
+
+    top:30px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:80%;
+
+    height:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+}
+
+
+
+#playerHealth,
+#enemyHealth {
+
+    height:100%;
+
+    width:50%;
+
+    border:3px solid white;
+
+    background:#00ff55;
+
+    transition:0.2s;
+
+}
+
+
+
+#enemyHealth {
+
+    background:#ff3333;
+
+}
+
+
+
+/* Messages */
+
+#message {
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    color:white;
+
+    font-size:50px;
+
+    font-weight:bold;
+
+    text-shadow:3px 3px 10px black;
+
+}
